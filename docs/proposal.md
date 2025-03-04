@@ -2,6 +2,12 @@
 
 `Knightrade` is a package built on top of `backtrader` that allows users to backtest trading strategies with more advanced features, and allows users to easy construct a live trading environment. The package is designed to be modular, and allows users to easily extend the package with their own modules.
 
+## Authors
+
+- [Yanzhong(Eric) Huang](https://github.com/bagelquant)
+- [Yongyi Tang](https://github.com/tyyzltrt)
+- [Qinqin Huang](https://github.com/QinqinAndMacaulayCat)
+
 ## Features
 
 - Backtest trading strategies
