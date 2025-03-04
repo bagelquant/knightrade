@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "knightrade"
+version = "0.0.0"
+authors = [
+  { name="Yanzhong Huang", email="eric.yanzhong.huang@gmail.com" },
+  { name="Yongyi Tang", email="tyyzltrt@gmail.com"},
+  { name="catmaster Qinqin Huang", email="qqhuang.catmaster@gmail.com"},
+]
+description = "`Knightrade` is a package built on top of `backtrader` that allows users to backtest trading strategies with more advanced features, and allows users to easy construct a live trading environment. The package is designed to be modular, and allows users to easily extend the package with their own modules."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pandas>=2.2.0",
+]   
+
+[project.urls]
+Homepage = "https://github.com/bagelquant/knightrade"
+Issues = "https://github.com/bagelquant/knightrade/issues"
