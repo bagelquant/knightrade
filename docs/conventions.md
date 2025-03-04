@@ -1,6 +1,6 @@
-# Convensions
+# Conventions
 
-This document describes the convensions used in this project. Including:
+This document describes the conventions used in this project. Including:
 
 - [File Structure](#file-structure)
 - [Naming](#naming)
@@ -26,7 +26,7 @@ The file structure is as follows:
 │   └── test_module2.py
 ├── docs/
 │   ├── version_log.md
-│   ├── convensions.md
+│   ├── conventions.md
 │   ├── doc_module1.md
 │   └── proposal.md
 ├── .gitignore
@@ -169,7 +169,7 @@ if __name__ == '__main__':
 ## Versioning
 
 1. Need pull request to merge to `main` branch.
-2. Git commit message should follow the convensions:
+2. Git commit message should follow the conventions:
     - `[<sprint_number>-<type>] short description`
     - Example, for sprint 1:
         - `[1-feature] add new feature`
