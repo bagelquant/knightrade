@@ -21,7 +21,7 @@
 flowchart TD
     A[Data Source] --> B[data_handler.py]
     B --> C[data_preprocessor.py]
-    C --> D[stratege]
+    C --> D[strategy.py]
     D --> E[signal]
     E --> I[live trading]
     E --> F[backtest]

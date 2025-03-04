@@ -34,6 +34,6 @@ Objective:
 Date: 2025-03-03 - 2025-03-03
 
 Tasks:
-- [ ] Completed version 0.0.0
-- [ ] Setup environment
+- [X] Completed version 0.0.0
+- [X] Setup environment
 
