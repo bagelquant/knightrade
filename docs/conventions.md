@@ -172,7 +172,7 @@ if __name__ == '__main__':
 2. Git commit message should follow the conventions:
     - `[<sprint_number>-<type>] short description`
     - Example, for sprint 1:
-        - `[1-feature] add new feature`
+        - `[1-add] add new feature`
         - `[1-bug] fix bug`
         - `[1-doc] update documentation`
 3. Each commit should have:

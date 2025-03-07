@@ -37,3 +37,14 @@ Tasks:
 - [X] Completed version 0.0.0
 - [X] Setup environment
 
+## 0.1.0
+
+DataHandler module
+
+#### Sprint 1
+
+- [X] `standard_data.py` module
+- [ ] `data_handler.py` module
+
+Standard Data Object is a class that provides a standard data structure for the project. It is a simple wrapper around `pandas.DataFrame` with some additional methods. It is used to ensure the data is in a consistent format. Especially for type hinting and data manipulation.
+
