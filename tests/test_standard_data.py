@@ -6,7 +6,7 @@ import unittest
 
 import pandas as pd
 
-from src.knightrade.standard_data import TimeSeries, CrossSection
+from src.knightrade.data import TimeSeries, CrossSection
 
 
 class TestStandardData(unittest.TestCase):
