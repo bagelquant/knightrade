@@ -48,7 +48,7 @@ Example: `snake_case`, `CamelCase`, `CONSTANT_CASE`, `_private`, `__protected`.
 - **Functions**: `snake_case`.
 - **Variables**: `snake_case`.
 - **Constants**(Global Variables): `CONSTANT_CASE`.
-- **Documents**: `docs/doc_module_name.md`
+- **Documents**: `docs/module_name.md`
 
 ## Code Style
 
