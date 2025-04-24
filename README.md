@@ -1,6 +1,6 @@
 # knightrade
 
-A trading back testing and trading system based on backtrader
+An vectorized trading strategy backtesting framework for Python.
 
 ## Usage
 

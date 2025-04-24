@@ -21,7 +21,7 @@ Responsible for raw data preprocessing and data transformation:
 
 ```mermaid
 graph TD
-    A[DataHandler] -->|source and Preprocessor| B[SandardData]
+    A[DataHandler] -->|source and Preprocessor| B[StandardData]
     
 ```
 
@@ -45,7 +45,7 @@ classDiagram
     class ABC
     
     class StandardData {
-        + data: pd.DataFrame
+    + data: pd.DataFrame
         - __post_init__() -> None
         - _check_data() -> None
     }
