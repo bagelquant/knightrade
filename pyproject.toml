@@ -19,7 +19,8 @@ classifiers = [
 ]
 dependencies = [
     "pandas>=2.2.0",
-    "yfinance>=0.2.54"
+    "yfinance>=0.2.54",
+    "matplotlib>=3.7.1",
 ]   
 
 [project.urls]
