@@ -1,6 +1,6 @@
 # Proposal
 
-`Knightrade` is a package built on top of `backtrader` that allows users to backtest trading strategies with more advanced features, and allows users to easy construct a live trading environment. The package is designed to be modular, and allows users to easily extend the package with their own modules.
+`Knightrade` is a package for backtesting and live trading. It is designed to be user-friendly and easy to use, with a focus on providing a simple interface for users to implement their own trading strategies. 
 
 ## Authors
 
