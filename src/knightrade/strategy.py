@@ -25,6 +25,9 @@ class Strategy(ABC):
 
     @abstractmethod
     def generate_signals(self) -> TimeSeries:
+        """
+        abstractmethod: Generate buy/sell signals based on the strategy.
+        """
         ... 
 
 
@@ -45,7 +48,9 @@ class SimpleMovingAverageStrategy(Strategy):
         Generate buy/sell signals based on the crossing of two moving averages.
         """
         price = self.price.data.copy()
-        signals = pd.DataFrame(index=price.index, columns=price.columns) 
+        signals = pd.DataFrame(index=price.index, columns=price.columns)
+        # set signals type to float
+        signals = signals.astype(float)
 
         # Calculate short and long moving averages
         short_mavg = price.rolling(window=self.short_window, min_periods=self.short_window).mean().shift(1)
@@ -55,7 +60,9 @@ class SimpleMovingAverageStrategy(Strategy):
         signals[price > short_mavg] = self.amount
         signals[price < long_mavg] = -self.amount
 
-        signals = signals.ffill().fillna(0)  # Forward fill and fill NaN with 0
+        # set signals type to float
+        signals = signals.astype(float)
+        signals = signals.ffill().fillna(0)
         signals = TimeSeries(signals)
         return signals
 
@@ -76,9 +83,11 @@ class MomentumStrategy(Strategy):
         """
         price = self.price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
+        # set signals type to float
+        signals = signals.astype(float)
 
         # Calculate momentum
-        momentum = price.pct_change(periods=self.window).shift(1)
+        momentum = price.pct_change(periods=self.window).shift()
 
         # Generate signals
         signals[momentum > 0] = self.amount
@@ -104,8 +113,9 @@ class MeanReversionStrategy(Strategy):
         """
         price = self.price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
+        # set signals type to float
+        signals = signals.astype(float)
 
-        # Calculate rolling mean and standard deviation
         rolling_mean = price.rolling(window=self.window).mean().shift(1)
         rolling_std = price.rolling(window=self.window).std().shift(1)
 
@@ -134,8 +144,8 @@ class BollingerBandsStrategy(Strategy):
         """
         price = self.price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
-
-        # Calculate rolling mean and standard deviation
+        # set signals type to float
+        signals = signals.astype(float)
         rolling_mean = price.rolling(window=self.window).mean().shift(1)
         rolling_std = price.rolling(window=self.window).std().shift(1)
 
@@ -152,7 +162,7 @@ class BollingerBandsStrategy(Strategy):
 
 
 @dataclass(slots=True)
-class RSI_Strategy(Strategy):
+class RSIStrategy(Strategy):
     """
     Relative Strength Index (RSI) strategy.
     This strategy generates buy/sell signals based on the RSI.
@@ -169,6 +179,8 @@ class RSI_Strategy(Strategy):
         """
         price = self.price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
+        # set signals type to float
+        signals = signals.astype(float)
 
         # Calculate RSI
         delta = price.diff()
