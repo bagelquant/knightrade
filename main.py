@@ -92,8 +92,8 @@ def main() -> None:
     # 5. visualize the results
     fig_portfolio = plot_time_series(result, title="Different Strategies Backtest")
     fig_drawdown = plot_drawdown(result, title="Drawdown Backtest")
-    fig_portfolio.show()
-    fig_drawdown.show()
+    fig_portfolio.savefig("docs/attachments/portfolio.png", dpi=300)
+    fig_drawdown.savefig("docs/attachments/drawdown.png", dpi=300)
     plt.show()
 
 
