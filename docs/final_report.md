@@ -1,11 +1,9 @@
+---
+title: "Final Report: Knightrade Project"
+author: "Yanzhong(Eric) Huang, Yongyi Tang, Qinqin Huang"
+geometry: "landscape"
 
-# Final Report: Knightrade Project
-
-Author:
-
-- [Yanzhong(Eric) Huang](https://github.com/bagelquant)
-- [Yongyi Tang](https://github.com/tyyzltrt)
-- [Qinqin Huang](https://github.com/QinqinAndMacaulayCat)
+---
 
 You could find the project on https://github.com/bagelquant/knightrade.
 
@@ -44,6 +42,38 @@ The backtest module simulates the execution of trading strategies on historical 
 ### 4. **Visualization Module**
 
 The visualization module provides tools for plotting time series data and portfolio performance metrics, such as drawdowns.
+
+\newpage
+
+### File Structure
+
+```plaintext
+.
+|-- src/
+|   |-- knightrade/
+|   |   |-- __init__.py
+|   |   |-- data_module/
+|   |   |   |-- __init__.py
+|   |   |   |-- data_handler.py
+|   |   |   |-- data_preprocessor.py
+|   |   |   |-- standard_data.py
+|   |   |-- strategy.py
+|   |   |-- backtest.py
+|   |   |-- visualization.py
+|-- docs/
+|   |-- attachments/
+|   |-- final_report.md
+|   |-- strategy.md
+|   |-- visualization.md
+|   |-- data_module.md
+|-- tests/
+|-- README.md
+|-- pyproject.toml
+|-- main.py
+|-- LICENSE
+```
+
+\newpage
 
 ## Object-Oriented Design
 
@@ -121,10 +151,7 @@ The following example demonstrates how to use the `Knightrade` package, it will 
 - a portfolio value figure
 - a drawdown figure
 
-![Portfolio Value Figure](attachments/portfolio.png)
-
-![Drawdown Figure](attachments/drawdown.png)
-
+You could find the figures at the end of this report.
 
 ```python
 import matplotlib.pyplot as plt
@@ -244,6 +271,36 @@ Handles raw data preprocessing and transformation into a standardized format. In
 - **Standard Data**: Defines a consistent data structure for type hinting and manipulation.
 - **Data Handler**: Converts data from various sources (e.g., local files, Yahoo Finance) into the standard format.
 
+#### Standard Data Object
+
+Standard Data Object is a class that provides a standard data structure for the project. It is a simple wrapper around `pandas.DataFrame` with some additional methods. It is used to ensure the data is in a consistent format. Especially for type hinting and data manipulation.
+
+There are two types of data objects in the project:
+
+- class `CrossSection`
+- class `TimeSeries`
+
+Both class have similar structure, the main difference is the data structure. The `CrossSection.data` is a `DataFrame` with `TimeStamp` as columns, while the `TimeSeries.data` is a `DataFrame` with `TimeStamp` as index.
+
+In short, you could easily convert one to another by transposing the `DataFrame`.
+
+These standard data objects are used in the project to ensure the data is in a consistent format. Especially for **type hinting** and data manipulation.
+
+#### Data Handler
+
+Provide an easy interface to convert data from different sources to a standard data object
+
+Data source:
+- local file
+    - `pandas.DataFrame`
+    - `.csv` file
+    - `.json` file
+    - `.xlsx` file
+- remote file
+    - `yahoo finance`
+
+This module is a function-based module, all functions are stateless and could be used independently.
+
 ### Strategy Module
 
 Defines trading strategies that generate buy/sell signals based on market conditions. Includes:
@@ -288,9 +345,97 @@ class CustomStrategy(Strategy):
       return signals
 ```
 
+#### Abstract Base Class: `Strategy`
+
+The `Strategy` class is an abstract base class that defines the interface for all trading strategies. It includes the following attributes and methods:
+
+- **Attributes**:
+  - `price`: A `TimeSeries` object representing the price data.
+
+- **Methods**:
+  - `generate_signals()`: An abstract method that must be implemented by all subclasses to generate buy/sell signals.
+
+#### Simple Moving Average Strategy: `SimpleMovingAverageStrategy`
+
+This strategy generates buy/sell signals based on the crossing of two moving averages.
+
+- **Attributes**:
+  - `short_window`: The window size for the short moving average.
+  - `long_window`: The window size for the long moving average.
+  - `amount`: The amount to buy/sell (default is 1.0).
+
+- **Logic**:
+  - Buy signals are generated when the price is above the short moving average.
+  - Sell signals are generated when the price is below the long moving average.
+
+#### Momentum Strategy: `MomentumStrategy`
+
+This strategy generates buy/sell signals based on the momentum of the price.
+
+- **Attributes**:
+  - `window`: The window size for calculating momentum.
+  - `amount`: The amount to buy/sell (default is 1.0).
+
+- **Logic**:
+  - Buy signals are generated when momentum is positive.
+  - Sell signals are generated when momentum is negative.
+
+#### Mean Reversion Strategy: `MeanReversionStrategy`
+
+This strategy generates buy/sell signals based on the mean reversion of the price.
+
+- **Attributes**:
+  - `window`: The window size for calculating the rolling mean and standard deviation.
+  - `amount`: The amount to buy/sell (default is 1.0).
+
+- **Logic**:
+  - Buy signals are generated when the price is below the rolling mean minus one standard deviation.
+  - Sell signals are generated when the price is above the rolling mean plus one standard deviation.
+
+#### Bollinger Bands Strategy: `BollingerBandsStrategy`
+
+This strategy generates buy/sell signals based on the Bollinger Bands.
+
+- **Attributes**:
+  - `window`: The window size for calculating the rolling mean and standard deviation.
+  - `num_std_dev`: The number of standard deviations for the bands.
+  - `amount`: The amount to buy/sell (default is 1.0).
+
+- **Logic**:
+  - Buy signals are generated when the price is below the lower Bollinger Band.
+  - Sell signals are generated when the price is above the upper Bollinger Band.
+
+#### Relative Strength Index (RSI) Strategy: `RSI_Strategy`
+
+This strategy generates buy/sell signals based on the Relative Strength Index (RSI).
+
+- **Attributes**:
+  - `window`: The window size for calculating RSI.
+  - `overbought`: The RSI threshold for overbought conditions (default is 70.0).
+  - `oversold`: The RSI threshold for oversold conditions (default is 30.0).
+  - `amount`: The amount to buy/sell (default is 1.0).
+
+- **Logic**:
+  - Buy signals are generated when the RSI is below the oversold threshold.
+  - Sell signals are generated when the RSI is above the overbought threshold.
+
 ### Backtest Module
 
-Simulates trading strategies on historical data, calculating portfolio performance, including cash, positions, and total value over time.
+The `Backtest` class is the core of this module. It simulates the execution of a trading strategy and tracks portfolio performance.
+
+#### Attributes
+
+- **strategy** (`Strategy`): The trading strategy to be backtested. It generates buy/sell signals.
+- **price** (`TimeSeries`): Historical price data for the assets being traded.
+- **initial_cash** (`float`): The starting cash balance for the backtest. Default is 1,000,000.
+- **portfolio** (`TimeSeries`): The total portfolio value (cash + positions) over time.
+- **position** (`TimeSeries`): The position sizes for each asset over time.
+- **cash** (`TimeSeries`): The cash balance over time.
+
+#### Methods
+
+- **`__post_init__()`**: Initializes the position attribute by generating signals from the strategy.
+- **`run()`**: Executes the backtest by calculating portfolio value and cash balance over time.
 
 ### Visualization Module
 
@@ -302,3 +447,9 @@ Provides tools for visualizing time series data and portfolio performance metric
 2. **Performance Metrics**: Add metrics like Sharpe ratio, maximum drawdown, and alpha.
 3. **Optimization**: Implement parameter optimization for strategies.
 4. **Live Trading**: Extend the package for live trading integration with brokers.
+
+\newpage
+
+![Portfolio Value Figure](attachments/portfolio.png)
+
+![Drawdown Figure](attachments/drawdown.png)
