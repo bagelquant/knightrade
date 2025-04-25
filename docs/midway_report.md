@@ -99,7 +99,7 @@ classDiagram
 - [X] 0.0.0: basic setup of the project
 - [X] 0.1.0: `data_handler.py` module
 - [X] 0.2.0: `data_preprocessor.py` module 
-- [ ] 0.3.0: backtest core functinoality 
+- [ ] 0.3.0: backtest core functionality 
 - [ ] 0.4.0: visualization 
 - [ ] 0.5.0: optimization 
 - [ ] 0.6.0: async-io 

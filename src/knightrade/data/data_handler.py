@@ -1,7 +1,7 @@
 """
 Handles the data from different sources and formats.
 
-Ouput:
+Output:
 - Standard data format
 """
 

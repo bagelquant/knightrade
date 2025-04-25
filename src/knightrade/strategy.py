@@ -21,7 +21,7 @@ class Strategy(ABC):
     This class defines the interface for all trading strategies.
     """
 
-    price: TimeSeries
+    _price: TimeSeries
 
     @abstractmethod
     def generate_signals(self) -> TimeSeries:
@@ -47,7 +47,7 @@ class SimpleMovingAverageStrategy(Strategy):
         """
         Generate buy/sell signals based on the crossing of two moving averages.
         """
-        price = self.price.data.copy()
+        price = self._price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
         # set signals type to float
         signals = signals.astype(float)
@@ -81,7 +81,7 @@ class MomentumStrategy(Strategy):
         """
         Generate buy/sell signals based on the momentum of the price.
         """
-        price = self.price.data.copy()
+        price = self._price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
         # set signals type to float
         signals = signals.astype(float)
@@ -111,7 +111,7 @@ class MeanReversionStrategy(Strategy):
         """
         Generate buy/sell signals based on the mean reversion of the price.
         """
-        price = self.price.data.copy()
+        price = self._price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
         # set signals type to float
         signals = signals.astype(float)
@@ -142,7 +142,7 @@ class BollingerBandsStrategy(Strategy):
         """
         Generate buy/sell signals based on the Bollinger Bands.
         """
-        price = self.price.data.copy()
+        price = self._price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
         # set signals type to float
         signals = signals.astype(float)
@@ -177,7 +177,7 @@ class RSIStrategy(Strategy):
         """
         Generate buy/sell signals based on the RSI.
         """
-        price = self.price.data.copy()
+        price = self._price.data.copy()
         signals = pd.DataFrame(index=price.index, columns=price.columns)
         # set signals type to float
         signals = signals.astype(float)

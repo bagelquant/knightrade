@@ -1,6 +1,6 @@
 # Data Handler
 
-Provide a easy interface to convert data from different sources to a [standard data object](standard_data.md).
+Provide an easy interface to convert data from different sources to a [standard data object](standard_data.md).
 
 Data source:
 - local file
