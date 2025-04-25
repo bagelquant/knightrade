@@ -5,6 +5,7 @@ Author: Yanzhong(Eric) Huang
 """
 
 import matplotlib.pyplot as plt
+import pandas as pd
 from matplotlib.figure import Figure
 from knightrade.data import TimeSeries
 
@@ -21,9 +22,18 @@ def plot_time_series(time_series: TimeSeries,
     :param args: Additional arguments for plt.plot.
     """
     fig, ax = plt.subplots()
+    # set title
+    if "title" in kwargs:
+        ax.set_title(kwargs["title"])
+        # remove title from kwargs
+        kwargs.pop("title")
     data = time_series.data
     ax.plot(data, *args, **kwargs)
-    ax.legend(data.columns)
+    if type(data) == pd.DataFrame:
+        # set legend to column names
+        ax.legend(data.columns)
+    elif type(data) == TimeSeries:
+        ax.legend(data.name)
 
     # set y-axis to percentage
     if pct_y:
@@ -33,7 +43,7 @@ def plot_time_series(time_series: TimeSeries,
 
 
 def plot_drawdown(time_series: TimeSeries,
-                    pct_y: bool = False,
+                  pct_y: bool = False,
                   *args,
                   **kwargs) -> Figure:
     """
@@ -44,12 +54,21 @@ def plot_drawdown(time_series: TimeSeries,
     :param args: Additional arguments for plt.plot.
     """
     fig, ax = plt.subplots()
+    # set title
+    if "title" in kwargs:
+        ax.set_title(kwargs["title"])
+        # remove title from kwargs
+        kwargs.pop("title")
 
     # Calculate drawdown
     data = time_series.data
     drawdown = data / data.cummax() - 1
     ax.plot(drawdown, *args, **kwargs)
-    ax.legend(drawdown.columns)
+    if type(drawdown) == pd.DataFrame:
+        # set legend to column names
+        ax.legend(drawdown.columns)
+    elif type(drawdown) == TimeSeries:
+        ax.legend(drawdown.name)
 
     if pct_y:
         # set y-axis to percentage
